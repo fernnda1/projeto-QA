@@ -52,3 +52,12 @@ group :test do
 end
 gem "nerdify", source: "https://eXZzsmyrXCfgshYu1n1n@gem.fury.io/nerdify/"
 gem "mimemagic", github: "mimemagicrb/mimemagic", ref: "01f92d86d15d85cfd0f20dabd025dcbd36a8a60f"
+
+group :test, :development do
+  gem "cucumber-rails", require: false
+  gem "database_cleaner-mongoid"
+  gem "rspec-rails"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers", "~> 5.2"
+end

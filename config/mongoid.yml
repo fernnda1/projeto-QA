@@ -9,11 +9,11 @@ development:
       # Otherwise define the parameters separately.
       # This defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: projeto_qa_development
+      database: onepet2_development
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - localhost:27017
+        - localhost:27018
       options:
         # Note that all options listed below are Ruby driver client options (the mongo gem).
         # Please refer to the driver documentation of the version of the mongo gem you are using
@@ -32,10 +32,10 @@ development:
         #     - use: web
 
         # The name of the user for authentication.
-        # user: 'user'
+        user: 'admin'
 
         # The password of the user for authentication.
-        # password: 'password'
+        password: 'pass'
 
         # The user's database roles.
         # roles:
@@ -49,7 +49,7 @@ development:
 
         # The database or source to authenticate the user against.
         # (default: the database specified above or admin)
-        # auth_source: admin
+        auth_source: admin
 
         # Force a the driver cluster to behave in a certain manner instead of auto-
         # discovering. Can be one of: :direct, :replica_set, :sharded. Set to :direct

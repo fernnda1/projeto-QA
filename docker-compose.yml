@@ -1,0 +1,80 @@
+services:
+  # MongoDB
+  mongo:
+    image: mongo:5.0
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass
+    volumes:
+      - mongo_data:/data/db
+      - ./docker-scripts/mongo.js:/docker-entrypoint-initdb.d/mongo.js:ro
+    ports:
+      - "27018:27017"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+
+  # Mongo Express
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - "8081:8081"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  # Jaeger
+  jaeger:
+    image: jaegertracing/all-in-one:1.31
+    container_name: jaeger
+    environment:
+      COLLECTOR_ZIPKIN_HTTP_HTTP_PORT: 9411
+    ports:
+      - "5775:5775"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"  # Jaeger UI
+      - "14250:14250"  # Endpoint de Jaeger
+      - "14268:14268"  # Endpoint de Jaeger
+      - "9411:9411"    # Zipkin
+    networks:
+      - app_network
+
+  # Redis
+  redis:
+    image: redis:6.2
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s          # Intervalo mais curto para testar
+      retries: 10           # Tentar mais vezes para dar mais tempo ao Redis iniciar
+      start_period: 5s      # Aguarda 5 segundos após iniciar para começar os testes
+      timeout: 3s           # Tempo de timeout reduzido
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local
+  gem_cache:
+    driver: local
