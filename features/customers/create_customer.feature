@@ -1,29 +1,28 @@
 # language: pt
 
-@cadastro @valido
-Funcionalidade: Cadastro de clientes
+Funcionalidade: Cadastro
 
-  Scenario Outline: Criar um novo cliente com dados válidos
-    Dado que eu visitei a página "/customers/new"
-    Quando eu preencho "<campo>" com "<valor>"
+  Esquema do Cenário: Criar cliente com dados variados
+    Dado que eu visitei a página "/clientes/novo"
+    Quando eu preencho o campo "nome" com "<nome>"
+    E eu preencho o campo "email" com "<email>"
     E eu clico em "Salvar"
     Então eu vejo "<mensagem>" na página
 
-    Exemplos:
-      | campo  | valor                | mensagem                      |
-      | email  | cliente@exemplo.com | Cliente criado com sucesso    |
-      | nome   | João da Silva       | Cliente criado com sucesso    |
-      | cpf    | 123.456.789-09      | Cliente criado com sucesso    |
-      | celular| (11) 91234-5678     | Cliente criado com sucesso    |
+    Quando eu preencho os seguintes campos:
+      | nome     | email              | mensagem                    |
+      | João     | joao@exemplo.com   | Cliente criado com sucesso |
+      | Maria    | maria@exemplo.com  | Cliente criado com sucesso |
+      | Invalido | invalido@.com      | Email inválido             |
 
   @cadastro @invalido
-  Scenario Outline: Tentativa de cadastro com dados inválidos
+  Esquema do Cenário: Tentativa de cadastro com dados inválidos
     Dado que eu visitei a página "/customers/new"
     Quando eu preencho "<campo>" com "<valor>"
     E eu clico em "Salvar"
     Então eu vejo "<mensagem>" na página
 
-    Exemplos:
+    Quando eu preencho os seguintes campos:
       | campo  | valor          | mensagem           |
       | email  | cliente@.com   | Email inválido     |
       | nome   | null           | Nome inválido      |

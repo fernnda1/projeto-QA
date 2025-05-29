@@ -1,4 +1,8 @@
-resource :customer do
+if defined?(Nerdify::Admin)
+  Nerdify::Admin.resource :customer do
+    # ... ações
+  end
+
   action :index
   action :show, layout: :default
   action :edit, only: %w(show), on: :member, position: :header, layout: :default, click: {redirect_to: "edit"}, submit: {put: "..", data: {:customer => ":resource"}, success: {redirect_to: "..", toast: :success}, error: {toast: :error, update: "components"}}

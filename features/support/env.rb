@@ -1,3 +1,4 @@
+require 'nerdify'
 require 'simplecov'
 SimpleCov.start
 
