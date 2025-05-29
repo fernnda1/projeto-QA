@@ -178,11 +178,11 @@ test:
     default:
       database: projeto_qa_test
       hosts:
-        - localhost:27017
+        - localhost:27018
       options:
-        read:
-          mode: :primary
-        max_pool_size: 1
+        user: 'admin'
+        password: 'pass'
+        auth_source: admin
   production:
     # Configure available database clients. (required)
     clients:

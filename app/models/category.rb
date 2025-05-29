@@ -174,6 +174,7 @@ class Category
   #   field :checkbox_collection, multiple: true, type: :checkbox, collection: "/path_to_collection", filters: {scope: :scope_name}
   #   field :password_field, type: :password, eye: true
   #   field :test, layout: :inline, view: :readonly
+  field :email , type: :email, presence: true
   #   -----------------------------------------------------------------------------------------------------
   #   Embeds
   #   Você pode usar embeds para incorporar fieldsets, lists e outros componentes a partir de outros modelos

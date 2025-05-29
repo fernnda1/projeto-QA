@@ -168,6 +168,10 @@ Quando /^existe (?:um|uma) "(.*)" cadastrad(?:o|a) na conta com:$/ do |model, ta
   expect(obj.account.present?).to be true
 end
 
+Quando("eu crio um cliente com sucesso") do
+  criar_cliente(email: "onepet@teste.com")
+end
+
 
 Então /^(?:eu )?(?:eu )?visitei a página "(.*)"$/ do |path|
   visit path

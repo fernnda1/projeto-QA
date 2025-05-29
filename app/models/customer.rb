@@ -1,7 +1,11 @@
 class Customer
   include Nerdify::Model
   orm :mongoid
-
+  acts_as_user
+  acts_as_user :database_authenticatable, :invitable
+  
+  
+end
   # Actions
   # Ações que podem ser relacionadas a um objeto ou uma coleção desta classe
   # São adicionadas ao modelo através do método action passando o nome da ação e opções de personalização
@@ -17,16 +21,7 @@ class Customer
   #   - render_if: condição de renderização no frontend
   # ---------------------------------------------------------------------------------------------------------------
   # Exemplo para um controlador com layout default
-  action :index
-  action :show, layout: :default
-  action :edit, only: %w(show), on: :member, position: :header, layout: :default, click: {redirect_to: "edit"}, submit: {put: "..", data: {:customer => ":resource"}, success: {redirect_to: "..", toast: :success}, error: {toast: :error, update: "components"}}
-  action :edit_cancel, only: %w(edit), on: :member, position: :footer, click: {redirect_to: ".."}
-  action :update, only: %w(edit), on: :member,position: :footer, click: {submit: "edit_customer"}
-  action :new, only: %w(index), on: :collection, position: :header, layout: :default, click: {redirect_to: "new"}, submit: {post: "..", data: {:customer =>  ":resource"}, success: {redirect_to: "..", toast: :success}, error: {toast: :error, update: "components"}}
-  action :new_cancel, only: %w(new), on: :member,position: :footer, click: {redirect_to: ".."}
-  action :create, only: %w(new), on: :member,position: :footer, click: {submit: "new_customer"}
-  action :destroy, only: %w(show), on: :member,position: :header, layout: :default, click: {delete: ".", confirm: true, success: {redirect_to: "..", toast: :success}, error: {toast: :error}}
-  # ---------------------------------------------------------------------------------------------------------------
+
   # Exemplo para um controlador com layout modal
   # action :index
   # action :show, layout: :modal
@@ -66,9 +61,7 @@ class Customer
   # - timeoutable
   # - omniauthable
   # ------------------------------------------------------------------------------
-  acts_as_user
-  acts_as_user :database_authenticatable, :invitable
-  
+
   # Associations
   # Cada modelo pode se relacionar com os demais de várias formas
   # Esses relacionamentos são definidos dentro do bloco associations
@@ -176,6 +169,7 @@ class Customer
   #   field :checkbox_collection, multiple: true, type: :checkbox, collection: "/path_to_collection", filters: {scope: :scope_name}
   #   field :password_field, type: :password, eye: true
   #   field :test, layout: :inline, view: :readonly
+  field :email, type: :email, presence: true
   #   -----------------------------------------------------------------------------------------------------
   #   Embeds
   #   Você pode usar embeds para incorporar fieldsets, lists e outros componentes a partir de outros modelos
@@ -397,4 +391,3 @@ class Customer
   #   add :extra_info, component: :text, type: :span, size: 12
   #   add :characteristics, component: :html, size: 12, position: :bottom, styles: {margin: {top: 2}, padding: {top: 1, bottom: 1, left: 2, right: 2}, border: {top: 1}}
   # end
-end

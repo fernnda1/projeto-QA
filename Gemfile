@@ -45,12 +45,8 @@ group :development do
   gem "web-console"
 end
 
-group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-end
-gem "nerdify", source: "https://eXZzsmyrXCfgshYu1n1n@gem.fury.io/nerdify/"
+gem 'nerdify', source: 'https://eXZzsmyrXCfgshYu1n1n@gem.fury.io/nerdify/'
+
 gem "mimemagic", github: "mimemagicrb/mimemagic", ref: "01f92d86d15d85cfd0f20dabd025dcbd36a8a60f"
 
 group :test, :development do
@@ -60,4 +56,8 @@ group :test, :development do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers", "~> 5.2"
+end
+
+group :test do
+  gem 'simplecov', require: false
 end
