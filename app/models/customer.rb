@@ -5,7 +5,6 @@ class Customer
   acts_as_user :database_authenticatable, :invitable
   
   
-end
   # Actions
   # Ações que podem ser relacionadas a um objeto ou uma coleção desta classe
   # São adicionadas ao modelo através do método action passando o nome da ação e opções de personalização
@@ -391,3 +390,4 @@ end
   #   add :extra_info, component: :text, type: :span, size: 12
   #   add :characteristics, component: :html, size: 12, position: :bottom, styles: {margin: {top: 2}, padding: {top: 1, bottom: 1, left: 2, right: 2}, border: {top: 1}}
   # end
+end
